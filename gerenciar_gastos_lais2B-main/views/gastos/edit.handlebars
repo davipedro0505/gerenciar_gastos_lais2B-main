@@ -1,0 +1,16 @@
+<h2>Editar Gasto</h2>
+
+<form method="post" action="/gastos/editar/{{gasto.id}}">
+    <input type="text" name="descricao" value="{{gasto.descricao}}" required>
+    <input type="number" name="valor" step="0.01" value="{{gasto.valor}}" required>
+
+    <select name="cartaoId" required>
+        {{#each cartoes}}
+        <option value="{{this.id}}" {{#ifEquals this.id ../gasto.cartaoId}}selected{{/ifEquals}}>
+            {{this.nome}}
+        </option>
+        {{/each}}
+    </select>
+
+    <button type="submit">Salvar</button>
+</form>

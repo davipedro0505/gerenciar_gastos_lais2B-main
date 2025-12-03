@@ -1,0 +1,22 @@
+<h2>Editar Orçamento</h2>
+
+<form method="post" action="/orcamentos/editar/{{orcamento.id}}">
+    <select name="usuarioId" required>
+        {{#each usuarios}}
+        <option value="{{this.id}}" {{#ifEquals this.id ../orcamento.usuario_id}}selected{{/ifEquals}}>{{this.nome}}</option>
+        {{/each}}
+    </select>
+
+    <select name="categoriaId" required>
+        {{#each categorias}}
+        <option value="{{this.id}}" {{#ifEquals this.id ../orcamento.categoria_id}}selected{{/ifEquals}}>{{this.nome}}</option>
+        {{/each}}
+    </select>
+
+    <input type="number" name="mes" min="1" max="12" value="{{orcamento.mes}}" required>
+    <input type="number" name="ano" value="{{orcamento.ano}}" required>
+    <input type="number" step="0.01" name="limite_gasto" value="{{orcamento.limite_gasto}}" required>
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/orcamentos">Voltar</a>

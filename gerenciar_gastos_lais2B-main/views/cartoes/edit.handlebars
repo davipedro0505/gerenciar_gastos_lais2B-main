@@ -1,0 +1,15 @@
+<h2>Editar Cartão</h2>
+
+<form method="post" action="/cartoes/editar/{{cartao.id}}">
+    <input type="text" name="nome" value="{{cartao.nome}}" required>
+
+    <select name="usuarioId" required>
+        {{#each usuarios}}
+        <option value="{{this.id}}" {{#ifEquals this.id ../cartao.usuarioId}}selected{{/ifEquals}}>
+            {{this.nome}}
+        </option>
+        {{/each}}
+    </select>
+
+    <button type="submit">Salvar</button>
+</form>

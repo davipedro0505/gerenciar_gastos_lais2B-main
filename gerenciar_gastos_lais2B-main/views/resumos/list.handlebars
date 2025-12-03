@@ -1,0 +1,44 @@
+<h2>Resumos</h2>
+
+<form method="post" action="/resumos">
+    <select name="usuarioId" required>
+        <option value="">Selecionar usuário</option>
+        {{#each usuarios}}
+        <option value="{{this.id}}">{{this.nome}}</option>
+        {{/each}}
+    </select>
+
+    <input type="number" name="mes" min="1" max="12" placeholder="Mês" required>
+    <input type="number" name="ano" placeholder="Ano" required>
+    <button type="submit">Gerar resumo</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Usuário</th>
+        <th>Mês/Ano</th>
+        <th>Total Gasto</th>
+        <th>Total Orçado</th>
+        <th>Nº Transações</th>
+        <th>Categoria Maior Gasto</th>
+        <th>Ações</th>
+    </tr>
+
+    {{#each resumos}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.usuario_nome}}</td>
+        <td>{{this.mes}}/{{this.ano}}</td>
+        <td>{{this.total_gasto}}</td>
+        <td>{{this.total_orcado}}</td>
+        <td>{{this.numero_transacoes}}</td>
+        <td>{{this.categoria_maior_gasto}}</td>
+        <td>
+            <form method="post" action="/resumos/delete/{{this.id}}" class="inline">
+                <button>Excluir</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>

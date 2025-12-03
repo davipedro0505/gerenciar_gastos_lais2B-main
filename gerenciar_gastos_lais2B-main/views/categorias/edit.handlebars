@@ -1,0 +1,10 @@
+<h2>Editar Categoria</h2>
+
+<form method="post" action="/categorias/editar/{{categoria.id}}">
+    <input type="text" name="nome" value="{{categoria.nome}}" required>
+    <input type="text" name="descricao" value="{{categoria.descricao}}">
+    <input type="color" name="cor" value="{{categoria.cor}}">
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/categorias">Voltar</a>

@@ -1,0 +1,27 @@
+<h2>Usuários</h2>
+
+<form method="post" action="/usuarios">
+    <input type="text" name="nome" placeholder="Nome do usuário" required>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ações</th>
+    </tr>
+
+    {{#each usuarios}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.nome}}</td>
+        <td>
+            <a href="/usuarios/editar/{{this.id}}">Editar</a>
+            <form method="post" action="/usuarios/delete/{{this.id}}" class="inline">
+                <button>Excluir</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>

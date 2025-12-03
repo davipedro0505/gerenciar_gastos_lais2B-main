@@ -1,0 +1,33 @@
+<h2>Categorias</h2>
+
+<form method="post" action="/categorias">
+    <input type="text" name="nome" placeholder="Nome da categoria" required>
+    <input type="text" name="descricao" placeholder="Descrição (opcional)">
+    <input type="color" name="cor" value="#743014">
+    <button type="submit">Cadastrar</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Cor</th>
+        <th>Ações</th>
+    </tr>
+
+    {{#each categorias}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.nome}}</td>
+        <td>{{this.descricao}}</td>
+        <td><span style="display:inline-block;width:20px;height:14px;background:{{this.cor}}"></span> {{this.cor}}</td>
+        <td>
+            <a href="/categorias/editar/{{this.id}}">Editar</a>
+            <form method="post" action="/categorias/delete/{{this.id}}" class="inline">
+                <button>Excluir</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>

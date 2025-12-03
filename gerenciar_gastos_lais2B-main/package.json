@@ -1,0 +1,20 @@
+{
+  "name": "gerenciar_gastos_lais2b",
+  "version": "1.0.0",
+  "description": "- **Laís Silvs** - **Kelven Sérgio** - **Davi Pedro**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-handlebars": "^8.0.4",
+    "sql.js": "^1.8.0"
+  },
+  "devDependencies": {}
+}

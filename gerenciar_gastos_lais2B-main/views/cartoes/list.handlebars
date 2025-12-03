@@ -1,0 +1,46 @@
+<h2>Cartões</h2>
+
+<form method="post" action="/cartoes">
+    <input type="text" name="nome" placeholder="Nome do cartão" required>
+
+    <select name="usuarioId" required>
+        <option value="">Selecionar usuário</option>
+        {{#each usuarios}}
+        <option value="{{this.id}}">{{this.nome}}</option>
+        {{/each}}
+    </select>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<form class="filter">
+    <select name="usuarioId" onchange="this.form.submit()">
+        <option value="">Filtrar por usuário</option>
+        {{#each usuarios}}
+        <option value="{{this.id}}">{{this.nome}}</option>
+        {{/each}}
+    </select>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Cartão</th>
+        <th>Usuário</th>
+        <th>Ações</th>
+    </tr>
+
+    {{#each cartoes}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.nome}}</td>
+        <td>{{this.usuarioNome}}</td>
+        <td>
+            <a href="/cartoes/editar/{{this.id}}">Editar</a>
+            <form method="post" action="/cartoes/delete/{{this.id}}" class="inline">
+                <button>Excluir</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>

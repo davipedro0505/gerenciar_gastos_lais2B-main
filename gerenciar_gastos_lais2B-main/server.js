@@ -1,5 +1,5 @@
 // =================================================
-// Servidor principal — versão corrigida
+// Servidor principal 
 
 const express = require("express");
 const exphbs = require("express-handlebars");
@@ -338,7 +338,7 @@ app.get('/usuarios/editar/:id', (req, res) => {
   });
 });
 
-  // Inicia servidor
+ 
   app.listen(3000, () => console.log('Rodando em http://localhost:3000'));
 }).catch(err => {
   console.error('Erro ao inicializar o banco de dados:', err);

@@ -40,20 +40,24 @@ initDb().then((db) => {
     res.render('usuarios/list', { usuarios });
   });
 
-  app.post('/usuarios', (req, res) => {
-    try {
-      const { nome } = req.body;
-      db.prepare('INSERT INTO usuarios (nome) VALUES (?)').run(nome);
-      res.redirect('/usuarios');
-    } catch (error) {
-      if (error.message && error.message.includes('UNIQUE constraint failed')) {
-        return res.send("❌ Erro: Um usuário com este nome já existe! <br><a href='/usuarios'>Voltar</a>");
-      }
-      res.send("❌ Erro ao criar usuário! <br><a href='/usuarios'>Voltar</a>");
-    }
-  });
+  app.get('/usuarios/add', (req, res) => {
+  res.render('usuarios/add');
+});
 
-  app.get('/usuarios/editar/:id', (req, res) => {
+ app.post('/usuarios', (req, res) => {
+  const { nome } = req.body; // pega do formulário
+  if (!nome) return res.send("❌ Nome não enviado!");
+
+  try {
+    db.prepare('INSERT INTO usuarios (nome) VALUES (?)').run(nome);
+    res.redirect('/usuarios');
+  } catch (error) {
+    res.send("❌ Erro ao criar usuário! <br><a href='/usuarios'>Voltar</a>");
+  }
+});
+
+
+app.get('/usuarios/editar/:id', (req, res) => {
     const usuario = db.prepare('SELECT * FROM usuarios WHERE id = ?').get(req.params.id);
     if (!usuario) return res.send('❌ Usuário não encontrado!');
     res.render('usuarios/edit', { usuario });
@@ -294,6 +298,45 @@ initDb().then((db) => {
     db.prepare('DELETE FROM gastos WHERE id = ?').run(req.params.id);
     res.redirect('/gastos');
   });
+  
+
+  app.get('/dashboard', (req, res) => {
+  // Totais rápidos
+  const totalUsuarios = db.prepare("SELECT COUNT(*) AS total FROM usuarios").get().total;
+  const totalCartoes = db.prepare("SELECT COUNT(*) AS total FROM cartoes").get().total;
+  const totalCategorias = db.prepare("SELECT COUNT(*) AS total FROM categorias").get().total;
+  const totalGastos = db.prepare("SELECT COUNT(*) AS total FROM gastos").get().total;
+
+  // Total gasto no mês atual
+  const mes = String(new Date().getMonth() + 1).padStart(2, '0');
+  const ano = new Date().getFullYear();
+
+  const totalMes = db.prepare(`
+    SELECT COALESCE(SUM(valor), 0) AS total
+    FROM gastos
+    WHERE strftime('%m', data_gasto) = ? AND strftime('%Y', data_gasto) = ?
+  `).get(mes, ano).total;
+
+  // Orçamentos do mês
+  const orcamentosMes = db.prepare(`
+    SELECT o.*, u.nome AS usuario_nome, c.nome AS categoria_nome
+    FROM orcamentos o
+    JOIN usuarios u ON u.id = o.usuario_id
+    JOIN categorias c ON c.id = o.categoria_id
+    WHERE o.mes = ? AND o.ano = ?
+  `).all(mes, ano);
+
+  res.render('dashboard', {
+    totalUsuarios,
+    totalCartoes,
+    totalCategorias,
+    totalGastos,
+    totalMes,
+    orcamentosMes,
+    mes,
+    ano
+  });
+});
 
   // Inicia servidor
   app.listen(3000, () => console.log('Rodando em http://localhost:3000'));

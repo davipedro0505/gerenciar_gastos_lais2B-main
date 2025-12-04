@@ -1,0 +1,58 @@
+<h2>📊 Dashboard — Visão Geral</h2>
+
+<div class="cards-grid">
+    <div class="dash-card">
+        <h3>👤 Usuários</h3>
+        <p>{{totalUsuarios}}</p>
+    </div>
+
+    <div class="dash-card">
+        <h3>💳 Cartões</h3>
+        <p>{{totalCartoes}}</p>
+    </div>
+
+    <div class="dash-card">
+        <h3>📂 Categorias</h3>
+        <p>{{totalCategorias}}</p>
+    </div>
+
+    <div class="dash-card">
+        <h3>💸 Gastos Registrados</h3>
+        <p>{{totalGastos}}</p>
+    </div>
+
+    <div class="dash-card destaque">
+        <h3>🔥 Total gasto no mês ({{mes}}/{{ano}})</h3>
+        <p>R$ {{totalMes}}</p>
+    </div>
+</div>
+
+<hr>
+
+<h3>📅 Orçamentos do mês {{mes}}/{{ano}}</h3>
+
+{{#if orcamentosMes.length}}
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Categoria</th>
+            <th>Limite</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each orcamentosMes}}
+        <tr>
+            <td>{{usuario_nome}}</td>
+            <td>{{categoria_nome}}</td>
+            <td>R$ {{limite_gasto}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<p>Nenhum orçamento cadastrado para este mês.</p>
+{{/if}}
+
+<hr>
+

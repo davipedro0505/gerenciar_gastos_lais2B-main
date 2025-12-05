@@ -73,6 +73,9 @@ A aplicação web terá uma tela principal com botões para acessar:
 - CRUD de usuários
 - CRUD de cartões 
 - CRUD de gastos
+- CRUD de categorias
+- CRUD de orçamentos
+- CRUD de resumos/relatórios de gastos
 
 ---
  
@@ -84,17 +87,4 @@ A aplicação web terá uma tela principal com botões para acessar:
 - **Orçamentos**: permite definir orçamentos mensais por usuário e categoria (mês/ano e limite de gasto). Serve para acompanhar limites planejados e comparar com os gastos reais.
 
 - **Resumos / Relatórios**: gera e armazena resumos mensais por usuário (total gasto, total orçado, número de transações e categoria de maior gasto). Os resumos podem ser gerados a partir dos dados existentes e consultados na interface.
-
-# Professor acontece que no meu pc nao tem o Node.js então deixei essas intruções, para poder rodar o projeto.
-
-# 1. Instalar Node.js (se não tiver):
-#    https://nodejs.org/ (versão LTS recomendada)
-
-# 2. Entrar na pasta do projeto e rodar:
-cd "C:\Users\User\Downloads\gerenciar_gastos_lais2B-main\gerenciar_gastos_lais2B-main"
-npm install
-npm start
-# ou simplesmente: node server.js
-
-# 3. Acessar em http://localhost:3000
 
